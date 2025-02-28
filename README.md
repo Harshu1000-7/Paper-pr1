@@ -1,7 +1,7 @@
 #An CLI based Operating System Thingy
 
 
-#Paper-pr1
+# Paper-pr1
 1) The OG, first version
 2) Ultra LightWeight, Only Takes 8kb storage
 
