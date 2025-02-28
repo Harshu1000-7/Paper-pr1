@@ -1,4 +1,4 @@
-#An CLI based Operating System Thingy
+#An CLI based Operating System Thingy, Like an OS simulator
 
 
 # Paper-pr1
