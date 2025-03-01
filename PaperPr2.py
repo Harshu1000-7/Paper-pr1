@@ -2,7 +2,6 @@ import os
 import sys
 import subprocess
 import shutil
-import psutil
 import requests
 import socket
 import numpy as np
@@ -178,15 +177,6 @@ def binary_to_text(binary):
     binary_values = binary.split()
     return ''.join(chr(int(b, 2)) for b in binary_values)
 
-def cpu_ram_usage():
-    cpu = psutil.cpu_percent(interval=1)
-    ram = psutil.virtual_memory().percent
-    print(f"CPU Usage: {cpu}% | RAM Usage: {ram}%")
-
-def system_uptime():
-    uptime_seconds = time.time() - psutil.boot_time()
-    uptime_string = time.strftime('%H:%M:%S', time.gmtime(uptime_seconds))
-    print(f"System Uptime: {uptime_string}")
 
 def text_to_binary(text):
     return ' '.join(format(ord(char), '08b') for char in text)
@@ -309,8 +299,6 @@ CLI OS Commands:
   traceroute <h>   - Trace route to a host
   theme <name>     - Change color theme (default, cyberpunk, retro)
   scan-ports <h>   - Scan open ports on a host
-  uptime           - Show system uptime
-  usage            - Show CPU and RAM usage
   text-bin <txt>   - Convert text to binary
   bin-text <bin>   - Convert binary to text
   scrape <url>     - Web scraper to fetch page content
@@ -351,8 +339,6 @@ def main():
                 "traceroute": lambda: traceroute(args[0]) if args else print("Usage: traceroute <host>"),
                 "scan-ports": lambda: check_open_ports(args[0]) if args else print("Usage: scan-ports <host>"),
                 "theme": lambda: change_theme(args[0]) if args else print("Usage: theme <name>"),
-                "uptime": system_uptime,
-                "usage": cpu_ram_usage,
                 "edit": lambda: edit_file(args[0]) if args else print("Usage: edit <filename>"),
                 "text-bin": lambda: print(text_to_binary(args[0])) if args else print("Usage: text-bin <text>"),
                 "bin-text": lambda: print(binary_to_text(args[0])) if args else print("Usage: bin-text <binary>"),
