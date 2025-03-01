@@ -4,6 +4,7 @@ import subprocess
 import shutil
 import requests
 import socket
+import psutil
 import numpy as np
 import colorama
 from colorama import Fore, Style
