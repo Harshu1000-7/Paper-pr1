@@ -231,6 +231,17 @@ def copy(src, dest):
         print(f"Copied '{src}' to '{dest}'")
     except Exception as e:
         print(f"Error copying: {e}")
+        
+def cpu_ram_usage():
+    cpu = psutil.cpu_percent(interval=1)
+    ram = psutil.virtual_memory().percent
+    print(f"CPU Usage: {cpu}% | RAM Usage: {ram}%")
+
+def system_uptime():
+    uptime_seconds = time.time() - psutil.boot_time()
+    uptime_string = time.strftime('%H:%M:%S', time.gmtime(uptime_seconds))
+    print(f"System Uptime: {uptime_string}")
+
 
 def move(src, dest):
     """ Move a file or folder """
@@ -297,6 +308,8 @@ CLI OS Commands:
   public-ip        - Show public IP address
   ping <host>      - Ping a host
   traceroute <h>   - Trace route to a host
+  uptime           - Show system uptime
+  usage            - Show CPU and RAM usage
   theme <name>     - Change color theme (default, cyberpunk, retro)
   scan-ports <h>   - Scan open ports on a host
   text-bin <txt>   - Convert text to binary
@@ -347,6 +360,8 @@ def main():
                 ) if args else print("Usage: scrape <url> [-s filename]"),
                 "cp": lambda: copy(args[0], args[1]) if len(args) >= 2 else print("Usage: cp <src> <dest>"),
                 "mv": lambda: move(args[0], args[1]) if len(args) >= 2 else print("Usage: mv <src> <dest>"),
+                "uptime": system_uptime,
+                "usage": cpu_ram_usage,
                 "ps": list_processes,
                 "kill": lambda: kill_process(args[0]) if args else print("Usage: kill <pid>"),
                 "download": lambda: download_file(args[0], args[1]) if len(args) >= 2 else print("Usage: download <url> <file>"),
