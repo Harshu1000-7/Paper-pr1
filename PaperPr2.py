@@ -5,7 +5,6 @@ import shutil
 import psutil
 import requests
 import socket
-import cv2
 import numpy as np
 import colorama
 from colorama import Fore, Style
@@ -158,27 +157,7 @@ def check_open_ports(host):
             if s.connect_ex((host, port)) == 0:
                 print(f"Port {port} is open")
 
-def camera_ascii(filename):
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
-        print("Error: Could not access the camera.")
-        return
     
-    ret, frame = cap.read()
-    cap.release()
-    if not ret:
-        print("Error: Could not capture image.")
-        return
-    
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    chars = "@%#*+=-:. "
-    scale = 255 // (len(chars) - 1)
-    ascii_art = "\n".join("".join(chars[pixel // scale] for pixel in row) for row in gray)
-    
-    with open(filename, "w") as f:
-        f.write(ascii_art)
-    
-    print(f"ASCII art saved to {filename}, camera is still a beta feature")
 
 def web_scraper(url, save=False, filename=None):
     try:
@@ -323,7 +302,6 @@ CLI OS Commands:
   touch <file>     - Create file
   edit <file>      - Edit a file
   cat <file>       - View file content
-  camera-ascii <f> - Capture image as ASCII art
   rm <file>        - Delete file
   local-ip         - Show local IP address
   public-ip        - Show public IP address
@@ -372,7 +350,6 @@ def main():
                 "ping": lambda: ping_host(args[0]) if args else print("Usage: ping <host>"),
                 "traceroute": lambda: traceroute(args[0]) if args else print("Usage: traceroute <host>"),
                 "scan-ports": lambda: check_open_ports(args[0]) if args else print("Usage: scan-ports <host>"),
-                "camera-ascii": lambda: camera_ascii(args[0]) if args else print("Usage: camera-ascii <file>"),
                 "theme": lambda: change_theme(args[0]) if args else print("Usage: theme <name>"),
                 "uptime": system_uptime,
                 "usage": cpu_ram_usage,
