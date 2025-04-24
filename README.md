@@ -1,4 +1,4 @@
-# An CLI based Operating System Thingy, Like an OS simulator
+# An CLI based python Shell
 
 
 # Paper-pr1
