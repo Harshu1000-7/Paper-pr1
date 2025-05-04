@@ -1,0 +1,5 @@
+requests
+psutil
+numpy
+colorama
+beautifulsoup4
